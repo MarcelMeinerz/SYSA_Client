@@ -79,7 +79,9 @@ public interface IAgent extends Serializable {
     public void setRememberResources(int x, int y, int resources);
     
     public int getRememberFieldSize();
-    
-    
+        
+    public void initializeRememberField();
+
+	public void mergeRememberField();
 
 }

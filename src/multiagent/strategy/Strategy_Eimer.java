@@ -8,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import multiagent.remote.IAgent;
 
-public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
+public class Strategy_Eimer extends UnicastRemoteObject implements IStrategy, Serializable {
 
     /**
      *
@@ -16,7 +16,7 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
     private static final long serialVersionUID = 1L;
     
     
-    public Strategy() throws RemoteException {
+    public Strategy_Eimer() throws RemoteException {
         super();
        
     }

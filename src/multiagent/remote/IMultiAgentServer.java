@@ -7,8 +7,6 @@ package multiagent.remote;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import javax.swing.JFrame;
-import multiagent.strategy.Strategy;
 
 
 /**

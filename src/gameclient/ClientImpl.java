@@ -91,5 +91,14 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
     public void setName(String name) throws RemoteException {
         this.name=name;
     }
-
+    
+  
+    @Override
+    public void resetStrategy(){
+        try {
+            strategy= new Strategy();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

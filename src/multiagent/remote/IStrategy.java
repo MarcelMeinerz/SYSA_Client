@@ -13,6 +13,11 @@ import java.rmi.RemoteException;
  */
 public interface IStrategy extends Remote {
 
+    /**
+     *
+     * @param agent
+     * @throws RemoteException
+     */
     public void nextAction(IAgent agent) throws RemoteException;
 
 }

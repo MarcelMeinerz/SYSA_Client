@@ -40,10 +40,23 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
     private int points;
     private ClientFrame frame;
 
+    /**
+     *
+     * @param frame
+     * @throws RemoteException
+     */
     public ClientImpl(ClientFrame frame) throws RemoteException {
         this.frame = frame;
     }
 
+    /**
+     *
+     * @param name
+     * @param strategy
+     * @param serverName
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean connect(String name,IStrategy strategy, String serverName ) throws RemoteException {
         try {
@@ -62,37 +75,66 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public IStrategy getStrategy() {
         return strategy;
     }
 
+    /**
+     *
+     * @param points
+     * @throws RemoteException
+     */
     @Override
     public void setPoints(int points) throws RemoteException {
         this.points = points;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public int getPoints() throws RemoteException {
         return points;
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void dispose() throws RemoteException {
         frame.dispose();
     }
 
+    /**
+     *
+     * @param name
+     * @throws RemoteException
+     */
     @Override
     public void setName(String name) throws RemoteException {
         this.name=name;
     }
     
-  
+    /**
+     *
+     */
     @Override
     public void resetStrategy(){
         try {

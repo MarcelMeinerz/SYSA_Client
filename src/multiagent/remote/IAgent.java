@@ -18,70 +18,206 @@ import java.rmi.RemoteException;
  */
 public interface IAgent extends Serializable {
 
+    /**
+     *
+     * @return
+     */
     public String getName();
 
+    /**
+     *
+     * @return
+     */
     public int getPosx();
 
+    /**
+     *
+     * @return
+     */
     public int getPosy();
 
+    /**
+     *
+     * @return
+     */
     public int getCapacity();
 
+    /**
+     *
+     * @return
+     */
     public int getLoad();
 
+    /**
+     *
+     * @param direction
+     */
     public void go(String direction);
 
+    /**
+     *
+     */
     public void take();
 
+    /**
+     *
+     * @return
+     */
     public int check();
 
+    /**
+     *
+     */
     public void put();
 
+    /**
+     *
+     * @param value
+     */
     public void put(int value);
 
+    /**
+     *
+     * @return
+     */
     public String getOrder();
 
+    /**
+     *
+     * @param direction
+     * @return
+     */
     public boolean requestField(String direction);
 
+    /**
+     *
+     * @return
+     */
     public int getHomeXY();
 
+    /**
+     *
+     * @return
+     */
     public boolean checkIfOnSpawn();
 
+    /**
+     *
+     * @return
+     */
     public int getPlanedPut();
 
+    /**
+     *
+     * @return
+     */
     public int getPoints();
 
+    /**
+     *
+     */
     public void buy();
 
+    /**
+     *
+     * @return
+     */
     public int getTargetAmount();
 
+    /**
+     *
+     * @return
+     */
     public int getAgentsValue();
 
+    /**
+     *
+     * @return
+     */
     public int getMaxAgents();
     
+    /**
+     *
+     * @return
+     */
     public boolean hasEnoughToBuy();
     
+    /**
+     *
+     * @return
+     */
     public boolean hasMaxAgents();
     
+    /**
+     *
+     * @return
+     */
     public boolean checkSpawnIsPossible();
     
+    /**
+     *
+     * @param i
+     * @param j
+     * @return
+     */
     public int getCustomData(int i, int j);
 
+    /**
+     *
+     * @param i
+     * @param j
+     * @param data
+     */
     public void setCustomData(int i, int j, int data);
     
+    /**
+     *
+     * @return
+     */
     public boolean buyPossible();
 
-	public IAgent[] getAgentArray();
+    /**
+     *
+     * @return
+     */
+    public IAgent[] getAgentArray();
 	 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public int getRememberResources(int x, int y);
 
+    /**
+     *
+     * @param resources
+     */
     public void setRememberResources(int resources);
     
+    /**
+     *
+     * @param x
+     * @param y
+     * @param resources
+     */
     public void setRememberResources(int x, int y, int resources);
     
+    /**
+     *
+     * @return
+     */
     public int getRememberFieldSize();
         
+    /**
+     *
+     */
     public void initializeRememberField();
 
-	public void mergeRememberField();
+    /**
+     *
+     */
+    public void mergeRememberField();
 
 }

@@ -31,11 +31,6 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
         super();
     }
 
-    /**
-     *
-     * @param agent
-     * @throws RemoteException
-     */
     @Override
     public void nextAction(IAgent agent) throws RemoteException {
     	  	

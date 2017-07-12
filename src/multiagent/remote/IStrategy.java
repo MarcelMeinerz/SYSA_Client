@@ -14,8 +14,9 @@ import java.rmi.RemoteException;
 public interface IStrategy extends Remote {
 
     /**
-     *
-     * @param agent
+     * Diese Methode initialisiert die Spielerstrategy des Spielers. Die Methode wird 
+     * nach jeder Runde für alle Agents des Spielers aufgerufen.
+     * @param agent Agent des Spielers
      * @throws RemoteException
      */
     public void nextAction(IAgent agent) throws RemoteException;

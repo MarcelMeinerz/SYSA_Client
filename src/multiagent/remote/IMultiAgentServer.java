@@ -20,19 +20,13 @@ import java.rmi.RemoteException;
 public interface IMultiAgentServer extends Remote{
 
     /**
-     *
-     * @param name
-     * @param aThis
+     * Diese Methode Uebergibt den Spieler an das Spiel
+     * @param name  Name des Spielers
+     * @param aThis  Strategy des Spielers
      * @return
      * @throws RemoteException
      */
     public boolean addPlayer(IPlayer name,IStrategy aThis) throws RemoteException; 
 
-    /**
-     *
-     * @return
-     * @throws RemoteException
-     */
-    public String print() throws RemoteException;
 
 }

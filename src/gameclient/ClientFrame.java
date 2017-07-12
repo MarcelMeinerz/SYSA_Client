@@ -103,7 +103,10 @@ public class ClientFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Diese Methode verbindet den Spieler mit dem Server
+     * @param evt Action Event
+     */
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
         try {
             ClientImpl client = new ClientImpl(this);

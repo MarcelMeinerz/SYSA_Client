@@ -22,58 +22,58 @@ import java.util.ArrayList;
 public interface IPlayer extends Remote{
 
     /**
-     *
-     * @param name
-     * @param strat
-     * @param serverName
-     * @return
+     * Diese Methode verbindet dan Spieler mit dem Server
+     * @param name Spielername
+     * @param strat Strategy des Spielers
+     * @param serverName IP-Adresse des Servers mit dem die Verbindung aufgebaut wird
+     * @return true, wenn der Spieler mit dem Server verbunden ist, sonst false
      * @throws RemoteException
      */
     public boolean connect(String name, IStrategy strat,String serverName) throws RemoteException;
     
     /**
-     *
-     * @return
+     * Diese Methode git den Spielername zurueck
+     * @return Spielername
      * @throws RemoteException
      */
     public String getName()throws RemoteException;
 
     /**
-     *
-     * @return
+     * Diese Methode git die Strategy des Spielers zurueck
+     * @return Strategy des Spielers
      * @throws RemoteException
      */
     public IStrategy getStrategy() throws RemoteException;
     
     /**
-     *
-     * @param points
+     * Diese Methode setzt die Punkte des Spielers
+     * @param points Punkte des Spielers
      * @throws RemoteException
      */
     public void setPoints(int points) throws RemoteException;
     
     /**
-     *
-     * @return
+     * Diese Methode gibt die Punkte des Spielers zurueck
+     * @return Punkte des Spielers
      * @throws RemoteException
      */
     public int getPoints() throws RemoteException;
     
     /**
-     *
+     * Diese Methode schliesst das Programm des Spielers
      * @throws RemoteException
      */
     public void dispose() throws RemoteException;
     
     /**
-     *
-     * @param name
+     * Diese Methode setzt den Namen des Spielers
+     * @param name Name des Spielers
      * @throws RemoteException
      */
     public void setName(String name) throws RemoteException;
     
     /**
-     *
+     * Diese Methode resetet die Strategy des Spielers bei Spielwiederholung
      * @throws RemoteException
      */
     public void resetStrategy() throws RemoteException;

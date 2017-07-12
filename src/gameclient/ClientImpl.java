@@ -59,7 +59,6 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
             }
             server = (IMultiAgentServer) Naming.lookup("//"+serverName+"/server");
             server.addPlayer(this,strategy);
-            System.out.println(server.print());
             return true;
         } catch (NotBoundException | MalformedURLException | AccessException   ex) {
             Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);

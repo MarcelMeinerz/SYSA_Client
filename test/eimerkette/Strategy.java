@@ -1,3 +1,4 @@
+package eimerkette;
 
 
 import multiagent.remote.IStrategy;
@@ -8,7 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import multiagent.remote.IAgent;
 
-public class Strategy_Eimer2 extends UnicastRemoteObject implements IStrategy, Serializable {
+public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 
     /**
      *
@@ -16,7 +17,7 @@ public class Strategy_Eimer2 extends UnicastRemoteObject implements IStrategy, S
     private static final long serialVersionUID = 1L;
     
     
-    public Strategy_Eimer2() throws RemoteException {
+    public Strategy() throws RemoteException {
         super();
        
     }

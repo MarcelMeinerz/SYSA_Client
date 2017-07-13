@@ -1,3 +1,4 @@
+package schnecke_ohne_kaufen;
 
 import multiagent.remote.IStrategy;
 import gameclient.AgentUtils;
@@ -7,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import multiagent.remote.IAgent;
 
-public class Strategy_2 extends UnicastRemoteObject implements IStrategy, Serializable {
+public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 
     /**
      *
@@ -15,7 +16,7 @@ public class Strategy_2 extends UnicastRemoteObject implements IStrategy, Serial
     private static final long serialVersionUID = 1L;
     
     
-    public Strategy_2() throws RemoteException {
+    public Strategy() throws RemoteException {
         super();
        
     }
@@ -89,7 +90,7 @@ public class Strategy_2 extends UnicastRemoteObject implements IStrategy, Serial
         		onWayBack = true;
         		goalX = lastX;
         		goalY = lastY;
-        		System.out.println("Auf dem Weg nach " + goalX + "/" + goalY + " zurueck.");
+        		System.out.println("Auf dem Weg nach " + goalX + "/" + goalY + " zur�ck.");
         	} else {
         		System.out.println("Kein Weg nach Hause gefunden");
         		
@@ -106,7 +107,7 @@ public class Strategy_2 extends UnicastRemoteObject implements IStrategy, Serial
         	if (!onWayHome && !onWayBack){
         		round = round + 1;
 	        	if (round > 4){
-	        		System.out.println("Radius erhoeht");
+	        		System.out.println("Radius erh�ht");
 	        		round = 1;
 	            	radius = radius + 2;
 	            	goalX = goalX - 1;

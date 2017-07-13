@@ -1,3 +1,4 @@
+package schnecke_mit_kaufen;
 
 import multiagent.remote.IStrategy;
 import gameclient.AgentUtils;
@@ -11,15 +12,11 @@ import java.rmi.server.UnicastRemoteObject;
 
 import multiagent.remote.IAgent;
 
-public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serializable {
+public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 	
 	boolean presented;
 	boolean isReturning;
 	int distance;
-	int distanceStartValue;
-	int directionValue; //1 == nach rechts, -1 == nach links
-	boolean goingUp;
-	boolean goingDown;
 	boolean goToNext;
     
     /**
@@ -28,15 +25,11 @@ public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serial
     private static final long serialVersionUID = 1L;
     
     
-    public Strategy_3() throws RemoteException {
+    public Strategy() throws RemoteException {
         super();
         System.out.println("Strategie Schnecke gestartet");
         presented = false;
-        distanceStartValue = 1;
-        distance = distanceStartValue;
-        directionValue = 1;
-        goingDown = true;
-        goingUp = false;
+        distance = 2;
         isReturning = true;
         goToNext = false;
     }
@@ -45,18 +38,9 @@ public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serial
     public void nextAction(IAgent agent) throws RemoteException {
     	if (!presented) {
             System.out.println("Player: " + agent.getName());
-            System.out.println("Size: " + agent.getRememberFieldSize());
-            System.out.println("Home: " + agent.getHomeXY() + " Home/2: " + agent.getHomeXY()/2);
             presented = true;
         	int home = agent.getHomeXY();
-            setReturnToPoint(agent, home + distance, 0);
-            /*IAgent[] agentArray = agent.getAgentArray();
-            for (int a=0; a<agentArray.length; a++) {
-    			if (agentArray[a] == agent)
-    				System.out.println("Nr.: " + a);
-    			else
-    				System.out.println("Nr. not " + a);
-    		}*/
+            setReturnToPoint(agent, home - distance + 1, home - distance);
     	}
     	
         agent.take(); //Default Aktion
@@ -84,8 +68,8 @@ public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serial
         		isReturning = true;
         	} else {
         		if (direction == "") {
-		    		//System.out.println(agent.getName() + " will nach Hause, kommt nicht durch und laeuft deshalb bloed herum.");
-		        	//zufaellige Richtung festlegen
+		    		//System.out.println(agent.getName() + " will nach Hause, kommt nicht durch und l�uft deshalb bl�d herum.");
+		        	//zuf�llige Richtung festlegen
 		        	direction = getRandomDirection(agent);
         		}
             	agent.go(direction);
@@ -97,44 +81,42 @@ public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serial
             
             if (!isReturning && agent.getLoad() + 1 == agent.getCapacity()) {
 	            //nach diesem Zug ist Agent voll beladen
-	            //letzte Position in customData merken, um spaeter dort weiter machen zu koennen            
+	            //letzte Position in customData merken, um sp�ter dort weiter machen zu k�nnen            
 	            setReturnToPoint(agent, agent.getPosx(), agent.getPosy());
 	            
 	            if (agent.check() == 1) {
-	            	//Feld nach Aufnehmen leer --> mit naechstem Feld weitermachen/zu naechstem Feld zurueckkehren
+	            	//Feld nach Aufnehmen leer --> mit n�chstem Feld weitermachen/zu n�chstem Feld zur�ckkehren
 	            	//goToNext = true;
 	            	resetReturnToPoint(agent);
 	            }
             }
         } else if (agent.getLoad() > 0 && agent.checkIfOnSpawn()) {
-        	//Agent hat Ressourcen geladen (Kapazitaetsgrenze aber noch nicht erreicht)
+        	//Agent hat Ressourcen geladen (Kapazit�tsgrenze aber noch nicht erreicht)
         	//und befindet sich auf Spawn-Feld --> abladen
         	agent.put();
+    		isReturning = true;
         } else if(agent.buyPossible() && agent.getAgentArray().length == 1 && (double)(agent.getPoints() + agent.getLoad())/agent.getTargetAmount() < 0.5){
-        	//Kauf eines neuen Agenten moeglich
+        	//Kauf eines neuen Agenten m�glich
         	agent.buy();
         	return;
         } else {
         	//(hier immer: aktuelle Position = 0 Ressourcen)
         	int home = agent.getHomeXY();
 
-        	//Punkt zum Zurueckkehren nach Abladen bestimmen
+        	//Punkt zum Zur�ckkehren nach Abladen bestimmen
             Point returnTo = getReturnToPoint(agent);
             //Ziel-Punkt
             Point goal;
             
-            //aeusseres Ende der ZickZack-Bewegung erreicht --> nach innen zurueckkehren und ZickZack in die andere Richtung starten
-            if (distance == (home +  1) * directionValue) {
-            	System.out.println("Richtung aendern. distance = " + distance);
-            	distance = distanceStartValue * (-1);
-            	distanceStartValue = distance;
-            	directionValue = directionValue * (-1);
-                setReturnToPoint(agent, home + distance, 0);
+            //�u�eres Ende der Spirale erreicht --> nach innen zur�ckkehren und Spirale neu starten
+            if (agent.getPosx() == 0 && agent.getPosy() == 0 && distance == home) {
+            	distance = 2;
+                setReturnToPoint(agent, home - distance + 1, home - distance);
             	isReturning = true;
             } 
             
             if (isReturning && (agent.getPosx() != returnTo.x || agent.getPosy() != returnTo.y)) {
-            	//ist am Zurueckkehren und hat Punkt noch nicht erreicht
+            	//ist am Zur�ckkehren und hat Punkt noch nicht erreicht
             	goal = returnTo;
             	//System.out.println("Return from (" + agent.getPosx() + "|" + agent.getPosy() + ") to " + returnTo);
             } else {
@@ -167,24 +149,25 @@ public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serial
             	} 
             	
             	if (direction == "" || !agent.requestField(direction)) {
-                	//System.out.println(agent.getName() + " kommt nicht durch und laeuft deshalb bloed herum.");
-                	//zufaellige Richtung festlegen
+                	//System.out.println(agent.getName() + " kommt nicht durch und l�uft deshalb bl�d herum.");
+                	//zuf�llige Richtung festlegen
                 	direction = getRandomDirection(agent);
                 	if (!isReturning) {
                 		isReturning = true;
                 		setReturnToPoint(agent, getContinuePoint(agent));
-                		//zu naechstem Feld zurueckkehren
+                		//zu n�chstem Feld zur�ckkehren
                 		resetReturnToPoint(agent);
             		}
             	} else {
-            		//System.out.println(agent.getName() + " geht zu: (" + goal.x + "|" + goal.y + ") ueber " + direction + ".");                	
+            		//System.out.println(agent.getName() + " geht zu: (" + goal.x + "|" + goal.y + ") �ber " + direction + ".");                	
             	}
             	
             } else {
+            	//System.out.println(agent.getName() + " l�uft bl�d herum.");
+            	//zuf�llige Richtung festlegen
             	direction = getRandomDirection(agent);
             }
             agent.go(direction);
-    		setUndoPreviousDirection(agent, direction);
         }
     }
 
@@ -197,47 +180,36 @@ public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serial
     
     public void resetReturnToPoint(IAgent agent) {  
     	int home = agent.getHomeXY();
-    	int size = agent.getRememberFieldSize();
-    	String undo = getUndoPreviousDirection(agent);
     	Point p = getReturnToPoint(agent);
     	int x = p.x;
     	int y = p.y;
 		
-    	if ((x == 0 || x == size-1) && (y == 0 || y == size-1) && (undo == AgentUtils.BOTTOM || undo == AgentUtils.TOP)) {
-			//ZickZack beendet
-			//Distanz erhoehen
+		if (x == home - distance && y == home - distance) {
+			//linke obere Ecke
+			//Distanz erh�hen
 			distance += 1;
-			x -= 1 * directionValue;
-		} else if (y == 0 && undo == AgentUtils.BOTTOM) {
-			//oben, kam von unten
-			x += 1 * directionValue;
-		} else if (y == size - 1 && undo == AgentUtils.TOP) {
-			//unten, kam von oben
-			x += 1 * directionValue;
-		} else if (y == 0 && undo != AgentUtils.BOTTOM) {
-			//oben, kam von seitlich
-			y += 1;
-			//Distanz erhoehen
-			distance = x - home;
-	        goingDown = true;
-	        goingUp = false;
-		} else if (y == size - 1 && undo != AgentUtils.TOP) {
-			//unten, kam von seitlich
 			y -= 1;
-			//Distanz erhoehen
-			distance = x - home;
-	        goingDown = false;
-	        goingUp = true;
-		} else if (undo == AgentUtils.BOTTOM) {
-			//kam von unten --> weiter nach oben gehen
-			y -= 1;
-		} else if (undo == AgentUtils.TOP) {
-			//kam von oben --> weiter nach unten gehen
+		} else if (x == home + distance && y == home - distance) {
+			//rechte obere Ecke
 			y += 1;
-		} else if (goingUp) {
+		} else if (x == home + distance && y == home + distance) {
+			//rechte untere Ecke
+			x -= 1;
+		} else if (x == home - distance && y == home + distance) {
+			//linke untere Ecke
 			y -= 1;
-		} else if (goingDown) {
+		} else if (y == home - distance) {
+			//oben
+			x += 1;
+		} else if (x == home + distance) {
+			//rechts
 			y += 1;
+		} else if (y == home + distance) {
+			//unten
+			x -= 1;
+		} else if (x == home - distance) {
+			//links
+			y -= 1;
 		} else {
 			System.out.println("No case fitted: x=" + x + ", y=" + y + ", home=" + home + ", distance=" + distance );
 		}
@@ -261,46 +233,35 @@ public class Strategy_3 extends UnicastRemoteObject implements IStrategy, Serial
     
     public void setContinuePoint(IAgent agent) {  
     	int home = agent.getHomeXY();
-    	int size = agent.getRememberFieldSize();
-    	String undo = getUndoPreviousDirection(agent);
 		int x = agent.getPosx();
 		int y = agent.getPosy();
 		
-		if ((x == 0 || x == size-1) && (y == 0 || y == size-1) && (undo == AgentUtils.BOTTOM || undo == AgentUtils.TOP)) {
-			//ZickZack beendet
-			//Distanz erhoehen
-			distance += 1 * directionValue;
-			x -= 1 * directionValue;
-		} else if (y == 0 && undo == AgentUtils.BOTTOM) {
-			//oben, kam von unten
-			x += 1 * directionValue;
-		} else if (y == size - 1 && undo == AgentUtils.TOP) {
-			//unten, kam von oben
-			x += 1 * directionValue;
-		} else if (y == 0 && undo != AgentUtils.BOTTOM) {
-			//oben, kam von seitlich
-			y += 1;
-			//Distanz erhoehen
-			distance = x - home;
-	        goingDown = true;
-	        goingUp = false;
-		} else if (y == size - 1 && undo != AgentUtils.TOP) {
-			//unten, kam von seitlich
+		if (x == home - distance && y == home - distance) {
+			//linke obere Ecke
+			//Distanz erh�hen
+			distance += 1;
 			y -= 1;
-			//Distanz erhoehen
-			distance = x - home;
-	        goingDown = false;
-	        goingUp = true;
-		} else if (undo == AgentUtils.BOTTOM) {
-			//kam von unten --> weiter nach oben gehen
-			y -= 1;
-		} else if (undo == AgentUtils.TOP) {
-			//kam von oben --> weiter nach unten gehen
+		} else if (x == home + distance && y == home - distance) {
+			//rechte obere Ecke
 			y += 1;
-		} else if (goingUp) {
+		} else if (x == home + distance && y == home + distance) {
+			//rechte untere Ecke
+			x -= 1;
+		} else if (x == home - distance && y == home + distance) {
+			//linke untere Ecke
 			y -= 1;
-		} else if (goingDown) {
+		} else if (y == home - distance) {
+			//oben
+			x += 1;
+		} else if (x == home + distance) {
+			//rechts
 			y += 1;
+		} else if (y == home + distance) {
+			//unten
+			x -= 1;
+		} else if (x == home - distance) {
+			//links
+			y -= 1;
 		} else {
 			System.out.println("No case fitted: x=" + x + ", y=" + y + ", home=" + home + ", distance=" + distance );
 		}

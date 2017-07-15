@@ -20,7 +20,13 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
 	boolean goToNext;
     
     /**
-     *
+     * {@link schnecke.Strategy}
+     * Ist der geplante Weg blockiert, umfährt der Roboter dieses Feld und steuert das nächste Feld auf dem Weg der Spirale an. 
+     * Ein Warten auf das Freiwerden des blockierten Feldes wäre nicht sinnvoll, 
+     * da dadurch Züge verschwendet werden würden und der blockierende Roboter in der Zwischenzeit alle oder einen großen Teil der Ressourcen auf diesem Feld abbauen könnte.
+     * Wenn genügend Ressourcen vorhanden sind, um einen neuen Roboter zu erwerben, noch über die Hälfte der zum Sieg benötigten Punkte fehlt, und erst ein Roboter vorhanden, wird ein Kauf getätigt. 
+     * Der neue Roboter startet die Spirale von innen und sammelt so Ressourcen ein, die durch blockierte Felder nicht gesammelt werden konnten, oder die von anderen Spielern abgeladen wurden.
+     * Erreicht der Roboter das äußere Ende der Spirale, kehrt er zurück zur Ausgangsposition und startet die Spirale erneut.
      */
     private static final long serialVersionUID = 1L;
     

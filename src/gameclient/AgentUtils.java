@@ -8,7 +8,7 @@ package gameclient;
 import java.awt.Color;
 
 /**
- *
+ * 
  * @author Marcel_Meinerz (marcel.meinerz@th-bingen.de)
  * @author Steffen_Hollenbach
  * @author Jasmin_Welschbillig
@@ -17,14 +17,41 @@ import java.awt.Color;
  */
 public class AgentUtils {
     
+    /**
+     * Order zum bewegen des Agenten
+     */
     public static final String GO = "go";
+    /**
+     * Order zum ablegen von Rohstoffen des Agenten
+     */
     public static final String PUT = "put";
+    /**
+     * Order zum aufnehmen von Rohsoffen
+     */
     public static final String TAKE = "take";
+    /**
+     * Order zum pruefen des Feldes
+     */
     public static final String CHECK = "check";
+    /**
+     * Order zum setzen der Richtung nach links
+     */
     public static final String LEFT = "l";
+    /**
+     * Order zum setzen der Richtung nach rechts
+     */
     public static final String RIGHT = "r";
+    /**
+     * Order zum setzen der Richtung nach oben
+     */
     public static final String TOP = "t";
+    /**
+     * Order zum setzen der Richtung nach unten
+     */
     public static final String BOTTOM = "b";
+    /**
+     * Order zum kaufen eines neuen Agenten
+     */
     public static final String BUY = "buy";
     
     public static final String ROT = "#f77462";

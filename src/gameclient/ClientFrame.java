@@ -5,9 +5,6 @@
  */
 package gameclient;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.rmi.RemoteException;
 import multiagent.strategy.Strategy;
 
@@ -22,8 +19,9 @@ import multiagent.strategy.Strategy;
 public class ClientFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form AgentFrame
+     * Erstellt eine Oberflaeche zum registrieren der Spieler
      */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public ClientFrame() {
         initComponents();
         setTitle("Player configuration");

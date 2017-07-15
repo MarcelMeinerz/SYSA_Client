@@ -11,7 +11,15 @@ import multiagent.remote.IAgent;
 public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 
     /**
-     *
+     * {@link schnecke.Strategy}
+     * Um ein Blockieren zu vermeiden, fährt der Roboter, wenn der geplante Weg blockiert ist, drei Runden lang in eine zufällige Richtung. 
+     * Ist der Weg dann noch immer blockiert, wiederholt er dies bis er seinen Weg fortsetzen kann.
+     * Dies passiert auch wenn der äußerste Punkt der Spirale erreicht ist. 
+     * Allerdings endet auch das Spiel damit, da er über jedes Feld gefahren ist und alle Rohstoffe dort gesammelt hat. 
+     * Eine Ausnahme ist, wenn ein anderer Roboter auf einem bereits abgefahrenen Feld Rohstoffe platziert hat.
+     * Die Strategie sieht keinen Kauf von weiteren Robotern vor, da diese nur hintereinanderfahren würden und hauptsächlich nur profitieren, wenn auf einem Feld mehr Rohstoffe liegen als der vordere Roboter laden kann.
+     * Ein Nachteil dieser Strategie ist, dass an evtl. vollen Feldern vorbeigefahren wird, da erst die aktuelle Runde vervollständigt wird.
+
      */
     private static final long serialVersionUID = 1L;
     

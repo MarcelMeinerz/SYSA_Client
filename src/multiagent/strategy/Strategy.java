@@ -20,13 +20,10 @@ import multiagent.remote.IAgent;
  */
 public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     
     /**
-     *
+     * Die Klasse {@link #this} ist die Strategie des Spielers, die fuer alle Agenten gilt.
      * @throws RemoteException
      */
     public Strategy() throws RemoteException {
@@ -35,8 +32,6 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
 
     @Override
     public void nextAction(IAgent agent) throws RemoteException {
-    	  	
-        
     }
     
 

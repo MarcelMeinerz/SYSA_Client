@@ -12,7 +12,17 @@ import multiagent.remote.IAgent;
 public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 
     /**
-     *
+     * Bei dieser Strategie sammelt der Start-Roboter zunächst nach dem Grundschema so viel Rohstoffe, dass ein zweiter Roboter gekauft werden kann. Dabei bewegt er sich zufällig fort.
+     * Jeder Roboter in dieser Strategie ist über ein Attribut in seinen CustomData zu identifizieren. Sobald zwei eigene Roboter auf dem Feld sind, bekommt der erste Roboter das Ziel zwischen einem bestimmten Punkt (Abholpunkt) 
+     * und dem Spawn hin und her zu pendeln. Dabei nimmt er von diesem Punkt Rohstoffe auf und liefert sie am Spawn ab. 
+     * Die Aufgabe der anderen Roboter ist es, den Abholpunkt mit Ressourcen zu versorgen. Dafür bewegen sie sich zufällig über den Spielplan. 
+     * Ist ihr Lager voll fahren sie jedoch entsprechend nicht zum Spawn zurück, sondern zum Abholpunkt. Von dort übernimmt dann der erste Roboter.
+     * Daher kommt auch der Name dieser Strategie. Sobald mehrere Roboter verfügbar sind fährt kein Roboter mehr die gesamte Strecke ab. 
+     * Die Ressourcen werden immer weitergegeben, der Weg somit aufgeteilt. 
+     * Allerdings bringt diese Strategie auch einige Nachteile mit sich: 
+     * Sind zwei oder mehr Roboter mit dem Füllen des Abholpunktes beschäftigt, besteht die Gefahr, dass der Abhol-Roboter nicht mehr hinterherkommt. 
+     * Grund dafür ist, dass das Abladen aller Ressourcen solange dauert wie das Aufladen einer einzigen. Ein weiterer Nachteil ist, dass die Sammel-Roboter ggf. voll am Spawn vorbei fahren um die Ressourcen am Abholpunkt abzuliefern. 
+     * Um jedoch alle Richtungen abzudecken wäre ein großer Roboter- und damit Ressourcenaufwand nötig. Zudem besteht das Risiko, dass andere Spieler die am Abholpunkt abgelegten Ressourcen klauen könnten. 
      */
     private static final long serialVersionUID = 1L;
     

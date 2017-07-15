@@ -20,7 +20,15 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
 	boolean goToNext;
     
     /**
-     *
+     * Diese Strategie wurde einmal mit zusätzlichen Robotern, einmal ohne implementiert. 
+     * Die Idee dieser Strategie ist, dass sich ein Roboter beginnend von seinem Startfeld in   
+     * einer Spirale immer weiter nach Außen bewegt und somit jedes Feld einmal betritt.  
+     * Findet er auf seinem Feld Rohstoffe, so lädt er alle ein. 
+     * Ist sein Laderaum voll, so begibt er sich auf direktem Weg zur Ablagestelle zurück und lädt seine Fracht ab. 
+     * Anschließend fährt er zurück zu dem Feld, auf welchem er sein Lager gefüllt hat. 
+     * Findet er auf dem Weg dorthin Rohstoffe, so sammelt er diese nicht auf, da er an diesem Feld noch vorbeikommt. 
+     * Am Ausgangspunkt angekommen setzt er seine Spirale fort. Der Vorteil dieser Strategie ist, dass nach einem gezielten Algorithmus jedes Feld einmal betreten wird. 
+     * Durch die Spiralform wird der Weg zum Sammelbereich minimal gehalten.
      */
     private static final long serialVersionUID = 1L;
     

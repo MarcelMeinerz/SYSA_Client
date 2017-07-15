@@ -23,7 +23,7 @@ public interface IMultiAgentServer extends Remote{
      * Diese Methode Uebergibt den Spieler an das Spiel
      * @param name  Name des Spielers
      * @param aThis  Strategy des Spielers
-     * @return
+     * @return true wenn sich der Spieler mit dem Server verbinden konnte, sonst false
      * @throws RemoteException
      */
     public boolean addPlayer(IPlayer name,IStrategy aThis) throws RemoteException; 

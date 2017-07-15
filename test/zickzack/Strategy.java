@@ -24,7 +24,14 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
 	boolean goToNext;
     
     /**
-     *
+     * Idee dieser Strategie ist, dass sich ein Roboter in einer Zick-Zack-Bewegung von oben nach unten und von unten nach oben über das Spielfeld bewegt, um möglichst alle Felder nur einmal zu besuchen. 
+     * Findet er unterwegs Rohstoffe, nimmt er diese auf. Ist er voll beladen, begibt er sich auf direktem Weg zur Abladestelle, lädt alles ab und macht sich auf den Weg zurück zum zuletzt besuchten Feld. 
+     * Auf diesem angekommen, setzt er seine Zick-Zick-Bewegung fort. Findet er auf seinem Rückweg Ressourcen, sammelt er auch diese ein. 
+     * Ist der Roboter am einen Ende des Spielfeldes angekommen, steuert er ein definiertes Feld in der Mitte des Spielfeldes an, um von dort seine Zick-Zack-Bewegung in die andere Richtung fortzusetzen.
+     * Wenn genügend Ressourcen vorhanden sind, um einen neuen Roboter zu erwerben, noch über die Hälfte der zum Sieg benötigten Punkte fehlt, und erst ein Roboter vorhanden, wird ein Kauf getätigt. 
+     * Der neue Roboter startet die Zick-Zack-Bewegung in derselben Art und Weise wie der erste Roboter und sammelt so Ressourcen ein, die durch blockierte Felder nicht gesammelt werden konnten, oder die von anderen Spielern abgeladen wurden.
+     * Ein Vorteil dieser Strategie ist, dass fast alle Felder des Spielfeldes einmal besucht werden.
+     * Nachteil dieser Strategie im Vergleich zur Schnecken-Strategie ist, dass aufgrund der Zick-Zack-Bewegung über das Spielfeld bereits zu Beginn größere Anfahrtswege zum Abladen der eingesammelten Ressourcen zurückzulegen sind.
      */
     private static final long serialVersionUID = 1L;
     

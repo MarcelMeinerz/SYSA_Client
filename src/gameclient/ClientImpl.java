@@ -41,8 +41,8 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
     private ClientFrame frame;
 
     /**
-     *
-     * @param frame
+     * Klasse zur direkten Remote-Verbindung zwischen Client und Server.
+     * @param frame Oberflaeche des Clients
      * @throws RemoteException
      */
     public ClientImpl(ClientFrame frame) throws RemoteException {

@@ -5,21 +5,17 @@
  */
 package gameclient;
 
-import java.awt.event.WindowEvent;
-import multiagent.remote.IPlayer;
-import multiagent.remote.IMultiAgentServer;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.AccessException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import multiagent.remote.IMultiAgentServer;
+import multiagent.remote.IPlayer;
 import multiagent.remote.IStrategy;
 import multiagent.strategy.Strategy;
 

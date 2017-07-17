@@ -1,17 +1,22 @@
 package schnecke_mit_kaufen;
 
-import multiagent.remote.IStrategy;
 import gameclient.AgentUtils;
-
-import java.util.ArrayList;
-import java.awt.List;
 import java.awt.Point;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
 import multiagent.remote.IAgent;
-
+import multiagent.remote.IStrategy;
+/**
+ *
+ * @author Marcel_Meinerz (marcel.meinerz@th-bingen.de)
+ * @author Steffen_Hollenbach
+ * @author Jasmin_Welschbillig
+ *
+ * @version 1.0
+ *
+ *
+ */
 public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 	
 	boolean presented;
@@ -73,7 +78,7 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
         		agent.put();
         		isReturning = true;
         	} else {
-        		if (direction == "") {
+        		if ("".equals(direction)) {
 		    		//System.out.println(agent.getName() + " will nach Hause, kommt nicht durch und l�uft deshalb bl�d herum.");
 		        	//zuf�llige Richtung festlegen
 		        	direction = getRandomDirection(agent);
@@ -154,7 +159,7 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
             			direction = AgentUtils.BOTTOM;
             	} 
             	
-            	if (direction == "" || !agent.requestField(direction)) {
+            	if ("".equals(direction) || !agent.requestField(direction)) {
                 	//System.out.println(agent.getName() + " kommt nicht durch und l�uft deshalb bl�d herum.");
                 	//zuf�llige Richtung festlegen
                 	direction = getRandomDirection(agent);
@@ -356,11 +361,7 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
     	
     	int home = agent.getRememberFieldSize() / 2;
     	
-    	if ((x >= home-1 && x <= home+1) && (y >= home-1 && y <= home+1)) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+        return (x >= home-1 && x <= home+1) && (y >= home-1 && y <= home+1);
     }
 
     public void setUndoPreviousDirection(IAgent agent, String direction) {

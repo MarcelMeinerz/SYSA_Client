@@ -1,14 +1,22 @@
 package eimerkette;
 
 
-import multiagent.remote.IStrategy;
 import gameclient.AgentUtils;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
 import multiagent.remote.IAgent;
-
+import multiagent.remote.IStrategy;
+/**
+ *
+ * @author Marcel_Meinerz (marcel.meinerz@th-bingen.de)
+ * @author Steffen_Hollenbach
+ * @author Jasmin_Welschbillig
+ *
+ * @version 1.0
+ *
+ *
+ */
 public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 
     /**

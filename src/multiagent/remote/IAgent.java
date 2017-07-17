@@ -6,7 +6,6 @@
 package multiagent.remote;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 /**
  *

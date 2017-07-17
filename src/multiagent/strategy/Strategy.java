@@ -23,7 +23,7 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
     private static final long serialVersionUID = 1L;
     
     /**
-     * Die Klasse {@link #this} ist die Strategie des Spielers, die fuer alle Agenten gilt.
+     * Die Klasse {@code Strategy} ist die Strategie des Spielers, die fuer alle Agenten gilt.
      * @throws RemoteException
      */
     public Strategy() throws RemoteException {

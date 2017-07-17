@@ -195,7 +195,6 @@ public interface IAgent extends Serializable {
     /**
      * Liefert ein {@code Array} mit allen Agenten des Spielers zurueck
      * @return Array mit allen Agenten des Spielers
-     * {@link #this}
      */
     public IAgent[] getAgentArray();
 	 

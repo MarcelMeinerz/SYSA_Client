@@ -34,7 +34,7 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
     private String name;
     private IStrategy strategy;
     private int points;
-    private ClientFrame frame;
+    private final ClientFrame frame;
 
     /**
      * Klasse zur direkten Remote-Verbindung zwischen Client und Server.

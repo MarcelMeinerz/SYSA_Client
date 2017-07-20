@@ -108,7 +108,7 @@ public interface IAgent extends Serializable {
     public int getHomeXY();
 
     /**
-     * Prüft ob der Roboter sich auf einem Spawn-Feld befindet.
+     * Prueft ob der Roboter sich auf einem Spawn-Feld befindet.
      * @return true wenn der Roboter sich auf einem Spawnfeld befindet, sonst false
      */
     public boolean checkIfOnSpawn();
@@ -186,7 +186,7 @@ public interface IAgent extends Serializable {
      * <br><BLOCKQUOTE>- finanzielle Mittel vorhanden, </BLOCKQUOTE>
      * <BLOCKQUOTE>- kein anderer Agent auf Spawn-Feld, </BLOCKQUOTE> 
      * <BLOCKQUOTE>- maximale Anzahl an Robotern wurde noch nicht erreicht  </BLOCKQUOTE>
-     * @return true wenn Bedingungen erfüllt sind, sonst false
+     * @return true wenn Bedingungen erfuellt sind, sonst false
      * {@link #hasEnoughToBuy() } {@link #checkIfOnSpawn() } {@link #hasMaxAgents() }
      */
     public boolean buyPossible();
@@ -198,7 +198,7 @@ public interface IAgent extends Serializable {
     public IAgent[] getAgentArray();
 	 
     /**
-     * Liefert die für das Feld mit den uebergebenen X-/Y-Koordinaten gemerkte Anzahl an Ressourcen.
+     * Liefert die fuer das Feld mit den uebergebenen X-/Y-Koordinaten gemerkte Anzahl an Ressourcen.
      * @param x Koordinate x im RememberField
      * @param y Koordinate y im RememberField
      * @return Wert der an der Stelle x,y liegt
@@ -213,7 +213,7 @@ public interface IAgent extends Serializable {
     public void setRememberResources(int resources);
     
     /**
-     * Traegt in das {@code RememberField} an der uebergebenen X-/Y-Position die übergebene Anzahl an Ressourcen ein.
+     * Traegt in das {@code RememberField} an der uebergebenen X-/Y-Position die uebergebene Anzahl an Ressourcen ein.
      * @param x Koordinate x im RememberField
      * @param y Koordinate y im RememberField
      * @param resources Wert der in das eigene Feld eingetragen wird
@@ -232,4 +232,9 @@ public interface IAgent extends Serializable {
      */
     public void mergeRememberField();
 
+    /**
+     * Setzt alle Felder des RememberFields auf -1.
+     */
+    public void clearRememberField();
+    
 }

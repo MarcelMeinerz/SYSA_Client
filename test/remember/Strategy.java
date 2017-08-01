@@ -1,25 +1,17 @@
 package remember;
 
-
 import multiagent.remote.IStrategy;
 import gameclient.AgentUtils;
 
+import java.util.ArrayList;
+import java.awt.List;
 import java.awt.Point;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import multiagent.remote.IAgent;
-/**
- *
- * @author Marcel_Meinerz (marcel.meinerz@th-bingen.de)
- * @author Steffen_Hollenbach
- * @author Jasmin_Welschbillig
- *
- * @version 1.0
- *
- *
- */
+
 public class Strategy extends UnicastRemoteObject implements IStrategy, Serializable {
 	
 	boolean presented;
@@ -68,9 +60,7 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
         	if (agent.checkIfOnSpawn()){
         		agent.put();
         	} else {
-        		if ("".equals(direction)) {
-		    		//System.out.println(agent.getName() + " will nach Hause, kommt nicht durch und l�uft deshalb bl�d herum.");
-		        	//zuf�llige Richtung festlegen
+        		if (direction == "") {
 		        	direction = getRandomDirection(agent);
         		}
             	agent.go(direction);
@@ -84,11 +74,9 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
         	//aktuelle Position mit Anzahl an Ressourcen in Spielfeld eintragen (1 einzusammelnde Ressource bereits abziehen)
             agent.setRememberResources(agent.check() - 1);
         } else if (agent.getLoad() > 0 && agent.checkIfOnSpawn()) {
-        	//Agent hat Ressourcen geladen (Kapazit�tsgrenze aber noch nicht erreicht)
         	//und befindet sich auf Spawn-Feld --> abladen
         	agent.put();
         } else if(agent.buyPossible() && agent.getAgentArray().length <= 2 && (double)(agent.getPoints() + agent.getLoad())/agent.getTargetAmount() < 0.5){
-        	//Kauf eines neuen Agenten m�glich und erw�nscht
         	agent.buy();
         	return;
         } else {
@@ -96,7 +84,6 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
         	agent.setRememberResources(agent.check());
         	//(hier immer: aktuelle Position = 0 Ressourcen)
         	
-        	// n�chste Mine nach gemerktem Spielfeld bestimmen
             Point goal = getNearestGoal(agent, agent.getCapacity() - agent.getLoad());
             
             String direction = "";
@@ -119,21 +106,17 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
             		if (agent.requestField(AgentUtils.BOTTOM))
             			direction = AgentUtils.BOTTOM;
             	} 
-            	//System.out.println(agent.getName() + " geht zu: (" + goal.x + "|" + goal.y + ") �ber " + direction + ".");
             	
-            	if ("".equals(direction) || !agent.requestField(direction)) {
+            	if (direction == "" || !agent.requestField(direction)) {
                 	System.out.println(agent.getName() + " kommt nirgendwo durch.");
-                	//zuf�llige Richtung festlegen
                 	direction = getRandomDirection(agent);
         			//direction = AgentUtils.BOTTOM;
             	}
             } else {
-            	//System.out.println(agent.getName() + " l�uft bl�d herum.");
-            	//zuf�llige Richtung festlegen
             	direction = getRandomDirection(agent);
             }
                     	
-        	if (!"".equals(direction)) {
+        	if (direction != "") {
         		agent.go(direction);
         		setUndoPreviousDirection(agent, direction);
         	}
@@ -247,7 +230,11 @@ public class Strategy extends UnicastRemoteObject implements IStrategy, Serializ
     	
     	int home = agent.getRememberFieldSize() / 2;
     	
-        return (x >= home-1 && x <= home+1) && (y >= home-1 && y <= home+1);
+    	if ((x >= home-1 && x <= home+1) && (y >= home-1 && y <= home+1)) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     public void setUndoPreviousDirection(IAgent agent, String direction) {

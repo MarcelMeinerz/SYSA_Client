@@ -35,6 +35,7 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
     private IStrategy strategy;
     private int points;
     private final ClientFrame frame;
+    private String serverName;
 
     /**
      * Klasse zur direkten Remote-Verbindung zwischen Client und Server.
@@ -53,6 +54,7 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
             if(serverName.isEmpty()){
                 serverName="localhost";
             }
+            this.serverName=serverName;
             server = (IMultiAgentServer) Naming.lookup("//"+serverName+"/server");
             server.addPlayer(this,strategy);
             return true;
@@ -84,6 +86,12 @@ public class ClientImpl extends UnicastRemoteObject implements Serializable, IPl
 
     @Override
     public void dispose() throws RemoteException {
+        try {
+            Naming.unbind("//"+serverName+"/server");
+        } catch (NotBoundException | MalformedURLException ex) {
+            Logger.getLogger(ClientImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        unexportObject(server, true);
         frame.dispose();
     }
 

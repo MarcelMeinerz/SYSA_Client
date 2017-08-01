@@ -8,6 +8,7 @@ package gameclient;
 import java.rmi.RemoteException;
 import multiagent.strategy.Strategy;
 
+
 /**
  *
  * @author Marcel_Meinerz (marcel.meinerz@th-bingen.de)
